@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalcOrderModule } from './calc-order/calc-order.module';
+import { CalcOrderBookModule } from './calc-order-book/calc-order-book.module';
 import { AppHeaderComponent } from './app-header/components/app-header/app-header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,8 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    CalcOrderModule,
-    HttpClientModule
+    CalcOrderBookModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

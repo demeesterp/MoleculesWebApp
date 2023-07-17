@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CalcOrderService } from './calc-order.service';
+import { CalcOrderBookService } from './calc-order-book.service';
 
 describe('CalcOrderService', () => {
-  let service: CalcOrderService;
+  let service: CalcOrderBookService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CalcOrderService);
+    service = TestBed.inject(CalcOrderBookService);
   });
 
   it('should be created', () => {

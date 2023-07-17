@@ -1,6 +1,4 @@
 class AllCalcBasissets {
-
-
         private static  CalcBasisSets:CalcBasisSet[] = [];
 
         public static GetCalcBasisSet(code:CalcBasisSetCode) : CalcBasisSet | undefined
@@ -20,6 +18,5 @@ class AllCalcBasissets {
                 new CalcBasisSet(CalcBasisSetCode.B6_31Gplus2dp,"6-31G+2dp"),
                 new CalcBasisSet(CalcBasisSetCode.B6_31Gplusdp,"6-31G+dp")
             ];
-
         }
 }

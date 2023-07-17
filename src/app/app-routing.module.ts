@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalcOrderComponent } from './calc-order/components/calc-order.component';
+import { CalcOrderBookComponent } from './calc-order-book/components/calc-order-book.component';
 
 const routes: Routes = [
-  { path: 'calc-orders', component: CalcOrderComponent },
-  { path: '',   redirectTo: '/calc-orders', pathMatch: 'full' }
+  { path: 'calc-order-book', component: CalcOrderBookComponent },
+  { path: '',   redirectTo: '/calc-order-book', pathMatch: 'full' }
 ];
 
 @NgModule({

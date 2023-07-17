@@ -2,7 +2,7 @@ interface IMoleculesError {
     DisplayMessage:string;
 }
 
-interface IMoleculeValidationErrorList {
+interface IMoleculeValidationErrors {
     ValidationErrors:IMoleculeValidationError[];
 }
 

@@ -6,8 +6,23 @@ import { Subject } from 'rxjs';
 })
 export class MolHttpClientErrorService {
 
-  private _error:Subject<IMoleculesError> = new Subject<IMoleculesError>();
-  private _validationErrors:Subject<IMoleculeValidationErrorList> = new Subject<IMoleculeValidationErrorList>();
+  private _error:Subject<MoleculesError>                  = new Subject<MoleculesError>();
+  private _validationErrors:Subject<ValidationErrorInfo>  = new Subject<ValidationErrorInfo>();
 
-  constructor() { }
+  public PublishError(error: MoleculesError) {
+    this._error.next(error);
+  }
+
+  public PublishValidationError(error: ValidationErrorInfo) {
+    this._validationErrors.next(error);
+  }
+
+  public SubscribeOnError(callback: (arg1: MoleculesError) => void): void {
+    this._error.subscribe((error) => callback(error) );
+  }
+
+  public SubscribeOnValidationError(callback: (arg1: ValidationErrorInfo) => void): void {
+   this._validationErrors.subscribe((error) => callback(error) );
+  }
+
 }

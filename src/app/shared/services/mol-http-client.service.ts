@@ -35,8 +35,41 @@ export class MolHttpClientService {
       );
   }
 
+  public post<Type>(url:string, body:any): Observable<Type|null> {
+    return this.client.post<Type>(url, body, {
+                observe: 'response',
+                responseType: 'json'
+            }).pipe(catchError((error: HttpErrorResponse) => {
+                this.HandleError(error, MoleculesHttpMethod.GET);
+                return EMPTY;
+            }),
+            map((response: HttpResponse<Type>) => response.body));
+  }
 
- private HandleError(error:HttpErrorResponse, method:MoleculesHttpMethod):any {
+  public put<Type>(url:string, body:any): Observable<Type|null> {
+    return this.client.put<Type>(url, body, {
+                observe: 'response',
+                responseType: 'json'
+            }).pipe(catchError((error: HttpErrorResponse) => {
+                this.HandleError(error, MoleculesHttpMethod.GET);
+                return EMPTY;
+            }),
+            map((response: HttpResponse<Type>) => response.body));
+  }
+  
+  public patch<Type>(url:string, body:any): Observable<Type|null> {
+    return this.client.patch<Type>(url, body, {
+                observe: 'response',
+                responseType: 'json'
+            }).pipe(catchError((error: HttpErrorResponse) => {
+                this.HandleError(error, MoleculesHttpMethod.GET);
+                return EMPTY;
+            }),
+            map((response: HttpResponse<Type>) => response.body));
+  }
+
+
+ private HandleError(error:HttpErrorResponse, method:MoleculesHttpMethod):void {
       if ( error.status === 0 ) {
         // case 0:server is down
         throw new ServerDownError(method, error.url??"");

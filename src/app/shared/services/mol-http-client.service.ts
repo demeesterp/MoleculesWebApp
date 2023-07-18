@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class MolHttpClientService {
   constructor(private client:HttpClient)  { }
 
  public get<Type>(url:string): Observable<Type | null> {
-    return this.client.get<Type>(url, {
+    return this.client.get<Type>(this.ComposeUrl(url), {
       observe: 'response',
       responseType: 'json'
     }).pipe(
@@ -23,7 +24,7 @@ export class MolHttpClientService {
  }
 
  public delete(url:string): Observable<void|null> {
-  return this.client.delete<void>(url, {
+  return this.client.delete<void>(this.ComposeUrl(url), {
           observe: 'response',
           responseType: 'json'
         }).pipe(
@@ -36,7 +37,7 @@ export class MolHttpClientService {
   }
 
   public post<Type>(url:string, body:any): Observable<Type|null> {
-    return this.client.post<Type>(url, body, {
+    return this.client.post<Type>(this.ComposeUrl(url), body, {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
@@ -47,7 +48,7 @@ export class MolHttpClientService {
   }
 
   public put<Type>(url:string, body:any): Observable<Type|null> {
-    return this.client.put<Type>(url, body, {
+    return this.client.put<Type>(this.ComposeUrl(url), body, {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
@@ -58,7 +59,7 @@ export class MolHttpClientService {
   }
   
   public patch<Type>(url:string, body:any): Observable<Type|null> {
-    return this.client.patch<Type>(url, body, {
+    return this.client.patch<Type>(this.ComposeUrl(url), body, {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
@@ -80,6 +81,10 @@ export class MolHttpClientService {
       }         
       // case all other errors
       throw new ServerError(method, error.url??"" , error.error);
+ }
+
+ private ComposeUrl(url:string):string {
+    return `${environment.apiEndpoint}${url}`;
  }
 
 }

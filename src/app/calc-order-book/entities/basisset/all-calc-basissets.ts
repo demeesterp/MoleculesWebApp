@@ -1,4 +1,7 @@
-class AllCalcBasissets {
+import { CalcBasisSet } from "./calc-basisset";
+import { CalcBasisSetCode } from "./calc-basisset-code";
+
+export class AllCalcBasissets {
         private static  CalcBasisSets:CalcBasisSet[] = [];
 
         public static GetCalcBasisSet(code:CalcBasisSetCode) : CalcBasisSet | undefined

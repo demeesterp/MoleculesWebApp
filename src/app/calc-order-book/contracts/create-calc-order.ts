@@ -1,4 +1,4 @@
-interface ICreateCalcOrder {
+export interface ICreateCalcOrder {
     Name:string;
     Description:string;
 }

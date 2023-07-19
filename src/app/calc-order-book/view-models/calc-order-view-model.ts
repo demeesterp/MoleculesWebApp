@@ -1,4 +1,8 @@
-class CalcOrderViewModel {
+import { ICalcOrder } from "../contracts/calc-order";
+import { CalcOrderDetailsViewModel } from "./calc-order-details-view-model";
+import { CalcOrderItemViewModel } from "./calc-order-item-view-model";
+
+export class CalcOrderViewModel {
     public Id:number                            = 0;
     public Details:CalcOrderDetailsViewModel    = new CalcOrderDetailsViewModel();
     public Items:CalcOrderItemViewModel[]       = [];

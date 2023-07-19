@@ -1,4 +1,4 @@
-interface  ICalcDetails {
+export interface  ICalcDetails {
     Charge:number;
     CalcType:string;
     BasisSetCode:string;

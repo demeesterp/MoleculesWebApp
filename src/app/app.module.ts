@@ -16,8 +16,8 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    CalcOrderBookModule,
-    SharedModule
+    SharedModule,
+    CalcOrderBookModule
   ],
   providers: [],
   bootstrap: [AppComponent]

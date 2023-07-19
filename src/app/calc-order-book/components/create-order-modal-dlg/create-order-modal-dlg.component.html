@@ -1,1 +1,28 @@
-<p>create-order-modal-dlg works!</p>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center flex-row">
+            <h3>Create Order</h3>
+            <button type="button" (click)="OnClickClose()" class="btn-close ms-auto" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="card-body">    
+        <form [ngClass]="formValidated ? 'was-validated' : 'needs-validation' " novalidate>
+            <div>
+                <label for="calcOrderName" class="form-label">Order Name</label>
+                <input type="text" 
+                        [formControl]='orderName'
+                        class="form-control" 
+                        id="calcOrderName" 
+                        maxlength="250" 
+                        aria-describedby="orderNameHelp" required>
+                <div class="invalid-feedback">
+                    The name is mandatory and can have max 250 characters.
+                </div>
+                <div id="orderNameHelp" class="form-text">Choose a descriptive name for your order.</div>
+            </div>
+            <div class="d-flex flex-row-reverse">           
+                <button type="button" (click)="OnClickSave()" class="btn btn-primary" aria-label="Save" >Save</button>
+            </div>
+        </form>  
+    </div>
+  </div>

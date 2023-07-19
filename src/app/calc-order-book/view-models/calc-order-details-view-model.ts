@@ -1,4 +1,4 @@
-class CalcOrderDetailsViewModel {
+export class CalcOrderDetailsViewModel {
    
    public Name:string = "";
    public Description:string = "";

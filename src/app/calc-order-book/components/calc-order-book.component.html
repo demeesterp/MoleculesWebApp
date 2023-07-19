@@ -3,22 +3,22 @@
         <div class="col-3">
             <div class="d-flex flex-row">
                 <div class="pt-1">Orders</div>
-                <button type="button" class="btn btn-outline-primary btn-sm ms-auto">Add</button>
+                <button type="button" (click)="OnClickNewOrder()" class="btn btn-outline-primary btn-sm ms-auto">New Order</button>
             </div>
         </div>
         <div class="col-9">
              <div class="d-flex flex-row">
                 <div class="pt-1">Order Items</div>
-                <button type="button" class="btn btn-outline-primary btn-sm ms-auto">Add</button>
+                <button type="button" (click)="OnClickNewOrderItem()" class="btn btn-outline-primary btn-sm ms-auto">New Order Item</button>
              </div>
         </div>
     </div>
     <div class="row">
         <div class="col-3">
-            <p> A List Of Orders</p>
+            <p> A list of orders</p>
         </div>
         <div class="col-9">
-           <p>A List Of Order Items</p> 
+           <p>A list of order items</p>
         </div>
     </div>
 </div>

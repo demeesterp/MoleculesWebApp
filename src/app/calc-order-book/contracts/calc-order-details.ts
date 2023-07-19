@@ -1,4 +1,4 @@
-interface ICalcOrderDetails {
+export interface ICalcOrderDetails {
     Name:string;
     Description:string;
 }

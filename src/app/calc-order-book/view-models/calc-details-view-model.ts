@@ -1,4 +1,4 @@
-class CalcDetailsViewModel {
+export class CalcDetailsViewModel {
     public Charge:number = 0;
     public Xyz:string = "";
     public CalcType:CalcType = CalcType.GeoOpt;

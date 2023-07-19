@@ -1,4 +1,6 @@
-class CalcOrderItemViewModel {    
+import { CalcDetailsViewModel } from "./calc-details-view-model";
+
+export class CalcOrderItemViewModel {    
     public Id:number = 0;
     public MoleculeName:string = ""
     public CalcDetails:CalcDetailsViewModel = new CalcDetailsViewModel();

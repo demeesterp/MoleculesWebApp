@@ -1,4 +1,4 @@
-interface IUpdateCalcOrder {
+export interface IUpdateCalcOrder {
     Name:string;
     Description:string;
 }

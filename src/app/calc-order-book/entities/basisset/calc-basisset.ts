@@ -1,4 +1,6 @@
-class CalcBasisSet {
+import { CalcBasisSetCode } from "./calc-basisset-code";
+
+export class CalcBasisSet {
     public Code:CalcBasisSetCode = CalcBasisSetCode.BSTO3G;
     public Name:string = "";
 

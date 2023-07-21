@@ -23,20 +23,21 @@ export class CreateOrderModalDlgComponent implements OnInit {
   }
 
   OnClickSave() {
-    if (!this.ValidateForm()) { 
-      this.formValidated = true;}
-    else {
-      this.activeModal.close(this.orderName.value);
+    if (this.ValidateForm()) { 
+      this.activeModal.close({
+        id: 0,
+        Details: {
+          Name: this.orderName.value,
+          Description: ''
+        },
+        Items: []
+      });
     }
   }
 
   private ValidateForm() : boolean {
-    if (this.orderName.value == null 
-        || this.orderName.value == ''
-        || this.orderName.value.length > 250) {
-      return false;
-    }
-    return true;
+    this.formValidated = false;
+    return this.orderName.status == 'VALID';
   }
     
 

@@ -21,7 +21,7 @@ export class CalcOrderBookComponent implements OnInit{
     const modalRef = this.modalService.open(CreateOrderModalDlgComponent);
 		modalRef.componentInstance.name = 'CreateOrderModalDlgComponent';
     modalRef.result.then((result) => {
-      alert(`Closed with: ${result}`);
+      alert(`Closed with: ${JSON.stringify(result)}`);
     });
   }
 
@@ -29,7 +29,7 @@ export class CalcOrderBookComponent implements OnInit{
     const modalRef = this.modalService.open(CreateOrderItemModalDlgComponent);
 		modalRef.componentInstance.name = 'CreateOrderItemModalDlgComponent';
     modalRef.result.then((result) => {
-      alert(`Closed with: ${result}`);
+      alert(`Closed with: ${JSON.stringify(result)}`);
     });
   }
 

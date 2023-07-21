@@ -1,17 +1,14 @@
-class ServerError {
+import { IMoleculesError } from "../contract/error";
+import { MoleculesHttpMethod } from "./molecules-http-method";
 
-    public DisplayMassage   : string                = "";
+export class ServerError {
 
-    public HttpMethod       : MoleculesHttpMethod   = MoleculesHttpMethod.GET;
-
-    public Resource         : string                = "";
-
+    public DisplayMessage: string = "";
+    
     public constructor(public httpMethod: MoleculesHttpMethod,
                         public resource: string,
-                            public error: IMoleculesError) {
-        this.DisplayMassage = error.DisplayMessage;
-        this.HttpMethod = httpMethod;
-        this.Resource = resource;
+                            private error: IMoleculesError) {
+        this.DisplayMessage = error.DisplayMessage;
     }
 
 }

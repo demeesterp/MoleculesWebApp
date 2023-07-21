@@ -1,4 +1,4 @@
-enum MoleculesHttpMethod {
+export enum MoleculesHttpMethod {
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',

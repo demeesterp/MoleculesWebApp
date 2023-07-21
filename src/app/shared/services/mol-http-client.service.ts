@@ -2,6 +2,10 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { ConnectionError } from '../entities/connection-error';
+import { ServerValidationError } from '../entities/server-validation-error';
+import { ServerError } from '../entities/server-error';
+import { MoleculesHttpMethod } from '../entities/molecules-http-method';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +77,7 @@ export class MolHttpClientService {
  private HandleError(error:HttpErrorResponse, method:MoleculesHttpMethod):void {
       if ( error.status === 0 ) {
         // case 0:server is down
-        throw new ServerDownError(method, error.url??"");
+        throw new ConnectionError(method, error.url??"");
         //throw new MoleculesError(method, error.url??"" , error.error);
       } else if ( error.status === 422) {
         // case 422:validation error

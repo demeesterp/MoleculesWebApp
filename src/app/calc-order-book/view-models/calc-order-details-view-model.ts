@@ -1,3 +1,5 @@
+import { ICalcOrderDetails } from "../contracts/calc-order-details";
+
 export class CalcOrderDetailsViewModel {
    
    public Name:string = "";

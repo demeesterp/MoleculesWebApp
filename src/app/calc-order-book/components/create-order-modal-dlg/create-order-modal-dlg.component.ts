@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
+import { CalcOrderViewModel } from '../../view-models/calc-order-view-model';
 
 @Component({
   selector: 'app-create-order-modal-dlg',
@@ -24,14 +25,9 @@ export class CreateOrderModalDlgComponent implements OnInit {
 
   OnClickSave() {
     if (this.ValidateForm()) { 
-      this.activeModal.close({
-        id: 0,
-        Details: {
-          Name: this.orderName.value,
-          Description: ''
-        },
-        Items: []
-      });
+      let result = new CalcOrderViewModel();
+      result.Details.Name = this.orderName.value??"";
+      this.activeModal.close(result);
     }
   }
 

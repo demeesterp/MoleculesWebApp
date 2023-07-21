@@ -1,12 +1,12 @@
-interface IMoleculesError {
+export interface IMoleculesError {
     DisplayMessage:string;
 }
 
-interface IMoleculeValidationErrors {
+export interface IMoleculeValidationErrors {
     ValidationErrors:IMoleculeValidationError[];
 }
 
-interface  IMoleculeValidationError {
+export interface  IMoleculeValidationError {
     Message:string;
     PropertyName:string;
 }

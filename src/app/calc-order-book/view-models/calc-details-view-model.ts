@@ -1,3 +1,7 @@
+import { ICalcDetails } from "../contracts/calc-details";
+import { CalcBasisSetCode } from "../entities/basisset/calc-basisset-code";
+import { CalcType } from "../entities/calc-type";
+
 export class CalcDetailsViewModel {
     public Charge:number = 0;
     public Xyz:string = "";

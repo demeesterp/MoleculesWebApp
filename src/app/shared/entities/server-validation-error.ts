@@ -1,4 +1,7 @@
-class ServerValidationError {
+import { IMoleculeValidationError, IMoleculeValidationErrors } from "../contract/error";
+import { MoleculesHttpMethod } from "./molecules-http-method";
+
+export class ServerValidationError {
   
     public HttpMethod: MoleculesHttpMethod  = MoleculesHttpMethod.GET;
 

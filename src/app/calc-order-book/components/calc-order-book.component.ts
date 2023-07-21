@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateOrderModalDlgComponent } from './create-order-modal-dlg/create-order-modal-dlg.component';
 import { CreateOrderItemModalDlgComponent } from './create-order-item-modal-dlg/create-order-item-modal-dlg.component';
+import { MolHttpClientErrorService } from 'src/app/shared/services/mol-http-client-error.service';
+import { CalcOrderBookService } from '../services/calc-order-book.service';
+import { CalcOrderViewModel } from '../view-models/calc-order-view-model';
 
 @Component({
   selector: 'app-calc-order',
@@ -9,20 +12,36 @@ import { CreateOrderItemModalDlgComponent } from './create-order-item-modal-dlg/
 })
 export class CalcOrderBookComponent implements OnInit{
 
-  //private _currentOrder!: CalcOrderViewModel ;
+  public get Orders():CalcOrderViewModel[] {
+    return this.calcOrderBookService.CalculationOrders;
+  }
   
-  constructor(private modalService: NgbModal) { }
+  public SelectedOrder:CalcOrderViewModel | null = null;
+  
+  constructor(private calcOrderBookService: CalcOrderBookService,
+                private modalService:       NgbModal, 
+                  private errorService:     MolHttpClientErrorService) { }
 
-  ngOnInit(): void {
-    //this._currentOrder = new CalcOrderViewModel();
+  async ngOnInit() {
+      
+      this.errorService.SubscribeOnConnectionError((error) => this.displayError("No connection", error));
+      this.errorService.SubscribeOnValidationError((error) => this.displayError("Vaidation error", error));
+      this.errorService.SubscribeOnError((error) => this.displayError("Server error", error));
+
+      await this.calcOrderBookService.GetCalculationOrders();
+
+      this.SelectedOrder = this.Orders.length > 0 ? this.Orders[0] : null;
   }
 
   public OnClickNewOrder() {
     const modalRef = this.modalService.open(CreateOrderModalDlgComponent);
 		modalRef.componentInstance.name = 'CreateOrderModalDlgComponent';
-    modalRef.result.then((result) => {
-      alert(`Closed with: ${JSON.stringify(result)}`);
-    });
+    modalRef.result.then( (result: CalcOrderViewModel) => 
+          this.calcOrderBookService.CreateCalculationOrder(result)
+          .then((result) => {
+                this.SelectedOrder = result;
+          })
+    );
   }
 
   public OnClickNewOrderItem() {
@@ -31,6 +50,14 @@ export class CalcOrderBookComponent implements OnInit{
     modalRef.result.then((result) => {
       alert(`Closed with: ${JSON.stringify(result)}`);
     });
+  }
+
+  public OnClickOrder(order:CalcOrderViewModel) {
+    this.SelectedOrder = order;
+  }
+
+  private displayError(msg: string, error: any): void {
+    alert(JSON.stringify(error));
   }
 
 }

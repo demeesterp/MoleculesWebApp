@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CalcOrderRepoService } from './calc-order-repo.service';
 import { CalcOrderViewModel } from '../view-models/calc-order-view-model';
-import { EMPTY, catchError, firstValueFrom, map, tap, throwError } from 'rxjs';
+import { EMPTY, catchError, finalize, firstValueFrom, map, tap, throwError } from 'rxjs';
 import { ICalcOrder } from '../contracts/calc-order';
 import { MolHttpClientErrorService } from 'src/app/shared/services/mol-http-client-error.service';
+import { CalcOrderItemViewModel } from '../view-models/calc-order-item-view-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,48 +16,113 @@ export class CalcOrderBookService {
   constructor(private repo: CalcOrderRepoService,
                 private errorService:MolHttpClientErrorService) { }
 
-  public async GetCalculationOrders(): Promise<CalcOrderViewModel[]> {
-       return firstValueFrom(this.repo.getCalcOrderList()
-          .pipe(catchError((err) => {
-              this.errorService.HandleAnyError(err);
-              return [];
-            }),
-            map((calcOrders) => this.mapCalcOrderList(calcOrders)),
-            tap((calcOrderVms) => this.handleCalcOrderList(calcOrderVms))));
+  public GetCalculationOrders(): Promise<CalcOrderViewModel[]> {
+    return firstValueFrom(this.repo.getCalcOrderList()
+      .pipe(catchError((err) => {
+          this.errorService.HandleAnyError(err);
+          return [];
+      }),
+      map((calcOrders) => this.mapCalcOrderList(calcOrders)),
+      tap((calcOrderVms) => this.handleCalcOrderList([ ...calcOrderVms]))));
   }
 
 
-  public async CreateCalculationOrder(calcOrder: CalcOrderViewModel): Promise<CalcOrderViewModel | null> {
-       return firstValueFrom(this.repo.createCalcOrder(calcOrder.Details.Name, calcOrder.Details.Description)
-        .pipe(catchError((err) => {
+  public CreateCalculationOrder(calcOrder: CalcOrderViewModel): Promise<CalcOrderViewModel | null> {
+    return firstValueFrom(this.repo.createCalcOrder(calcOrder.Details.Name, calcOrder.Details.Description)
+      .pipe(catchError((err) => {
             this.errorService.HandleAnyError(err);
             return EMPTY;
-        }),
-        map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
-        tap((calcOrderVms) =>  {
-          if ( calcOrderVms !== null ) {
-            this.CalculationOrders = [...this.CalculationOrders, calcOrderVms];
+      }),
+      map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
+      tap((calcOrderVm) => {
+        if ( calcOrderVm ) this.handleCalcOrderList([...this.CalculationOrders, calcOrderVm])
+      }) )
+      );
+  }
+
+  public UpdateCalculationOrder(id:number, name: string, description:string) {
+    return firstValueFrom(this.repo.updateCalcOrder(id, name, description)
+      .pipe(catchError((err) => {
+            this.errorService.HandleAnyError(err);
+            return EMPTY;
+          }),
+          map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
+          tap((calcOrderVm) =>  {
+            if ( calcOrderVm ) this.handleCalcOrderList([...this.CalculationOrders, calcOrderVm]);
+          })));
+   }
+
+   public DeleteCalculationOrder(id:number) {
+      return firstValueFrom(this.repo.deleteCalcOrder(id)
+              .pipe(catchError((err) => {
+                this.errorService.HandleAnyError(err);
+                return EMPTY;
+                }),
+                finalize(() => {
+                    this.CalculationOrders = [...this.CalculationOrders.filter(i => i.Id !== id)]
+                })));
+   }
+
+  public CreateCalculationOrderItem(calcOrderId: number, calcOrderItem: CalcOrderItemViewModel): Promise<CalcOrderItemViewModel | null> {
+    return firstValueFrom( this.repo.createCalcOrderItem(calcOrderId, {
+          MoleculeName : calcOrderItem.MoleculeName,
+          Details : {
+            Charge : calcOrderItem.Details.Charge,
+            CalcType : calcOrderItem.Details.CalcType,
+            BasisSetCode : calcOrderItem.Details.BasisSet.Code,
+            Xyz : calcOrderItem.Details.Xyz
           }
-        })));
-  } 
+      })
+      .pipe(catchError((err) => {
+          this.errorService.HandleAnyError(err);
+          return EMPTY;
+      }),
+      map((calcOrderItem) => CalcOrderItemViewModel.fromCalcOrderItem(calcOrderItem)),
+      tap((calcOrderItemVm) => {      
+        let currentOrder = this.CalculationOrders.find(order => order.Id === calcOrderId);
+        if (currentOrder && calcOrderItemVm) {
+          currentOrder.Items = this.handleCalcOrderItemList([calcOrderItemVm, ... currentOrder.Items]) ;
+        }
+      })
+      ));
+  }
   
   
+  public DeleteOrderItem(calcOrderId:number,calcOrderItemId:number): Promise<void|null> {
+    return firstValueFrom(this.repo.deleteCalcOrderItem(calcOrderItemId)
+          .pipe(catchError((err) => {
+              this.errorService.HandleAnyError(err);
+              return EMPTY;
+            }),
+            finalize(() => {
+              let currentOrder = this.CalculationOrders.find(order => order.Id === calcOrderId);
+              if (currentOrder) {
+                currentOrder.Items = this.handleCalcOrderItemList([... currentOrder.Items.filter(item => item.Id !== calcOrderItemId)]);
+              }
+            })));
+  }
   
+  private mapCalcOrder(data:ICalcOrder): CalcOrderViewModel | null {
+    return CalcOrderViewModel.fromCalcOrder(data);
+  }
   
   private mapCalcOrderList(data: ICalcOrder[] | null): CalcOrderViewModel[] {
     if (data && data.length > 0) {
-      return data.sort((a, b) => a.Details.Name.localeCompare(b.Details.Name))
-                        .map((item) => CalcOrderViewModel.fromCalcOrder(item)) as CalcOrderViewModel[];
+      return data.map((item) => this.mapCalcOrder(item)) as CalcOrderViewModel[];
     } else {
       return [];
     }
   }
 
-  private handleCalcOrderList(data: CalcOrderViewModel[]): void {
-    if (data.length > 0) {
-      this.CalculationOrders = [... data];
+  private handleCalcOrderList(data: CalcOrderViewModel[] | null): void {
+    if (data) {
+      this.CalculationOrders = data.sort((a, b) => a.Details.Name.localeCompare(b.Details.Name));
     } else {
       this.CalculationOrders = [];
     }
+  }
+
+  private handleCalcOrderItemList(data: CalcOrderItemViewModel[]): CalcOrderItemViewModel[]  {
+      return data.sort((lhs, rhs) => lhs.Id - rhs.Id)
   }
 }

@@ -1,5 +1,5 @@
-import { IMoleculesError } from "../contract/error";
-import { MoleculesHttpMethod } from "./molecules-http-method";
+import { IMoleculesError } from "../../contract/error";
+import { MoleculesHttpMethod } from "../molecules-http-method";
 
 export class ServerError {
 

@@ -1,5 +1,5 @@
-import { IMoleculeValidationError, IMoleculeValidationErrors } from "../contract/error";
-import { MoleculesHttpMethod } from "./molecules-http-method";
+import { IMoleculeValidationError, IMoleculeValidationErrors } from "../../contract/error";
+import { MoleculesHttpMethod } from "../molecules-http-method";
 
 export class ServerValidationError {
   

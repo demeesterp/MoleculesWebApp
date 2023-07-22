@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CalcOrderViewModel } from '../../view-models/calc-order-view-model';
 
 @Component({
@@ -11,7 +11,7 @@ export class CreateOrderModalDlgComponent implements OnInit {
 
   @Input() public formValidated!:boolean;
 
-  public orderName = new FormControl('');
+  public orderName = new FormControl('', Validators.required);
 
   constructor(public activeModal: NgbActiveModal) { }
 

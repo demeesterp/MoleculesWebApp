@@ -1,3 +1,4 @@
+import { ClientError } from "src/app/shared/entities/error/client-error";
 import { CalcBasisSet } from "./calc-basisset";
 import { CalcBasisSetCode } from "./calc-basisset-code";
 
@@ -12,9 +13,10 @@ export class BasisSetService {
                         new CalcBasisSet(CalcBasisSetCode.B6_31Gplusdp,"6-31G+dp") ];
 
         
-        public static GetCalcBasisSet(code:CalcBasisSetCode) : CalcBasisSet | undefined
-        {
-           return BasisSetService.CalcBasisSets.find(x=>x.Code == code);
+        public static GetCalcBasisSet(code:CalcBasisSetCode) : CalcBasisSet {
+           let retval = BasisSetService.CalcBasisSets.find(x=>x.Code === code);
+           if (retval) return retval;
+             throw new ClientError(`BasisSetService.GetCalcBasisSet: Basis set with code ${code} not found`);
         }
 
 

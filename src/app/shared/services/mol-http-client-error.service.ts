@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ConnectionError } from '../entities/connection-error';
-import { ServerError } from '../entities/server-error';
-import { ServerValidationError } from '../entities/server-validation-error';
+import { ConnectionError } from '../entities/error/connection-error';
+import { ServerError } from '../entities/error/server-error';
+import { ServerValidationError } from '../entities/error/server-validation-error';
 
 @Injectable({
   providedIn: 'root'

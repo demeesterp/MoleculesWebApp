@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { EMPTY, Observable, catchError, filter, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { ConnectionError } from '../entities/connection-error';
-import { ServerValidationError } from '../entities/server-validation-error';
-import { ServerError } from '../entities/server-error';
+import { ConnectionError } from '../entities/error/connection-error';
+import { ServerValidationError } from '../entities/error/server-validation-error';
+import { ServerError } from '../entities/error/server-error';
 import { MoleculesHttpMethod } from '../entities/molecules-http-method';
 
 @Injectable({
@@ -45,10 +45,11 @@ export class MolHttpClientService {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
-                this.HandleError(error, MoleculesHttpMethod.GET);
+                this.HandleError(error, MoleculesHttpMethod.POST);
                 return EMPTY;
             }),
-            map((response: HttpResponse<Type>) => response.body));
+            map((response: HttpResponse<Type>) => response.body)
+            );
   }
 
   public put<Type>(url:string, body:any): Observable<Type|null> {
@@ -56,7 +57,7 @@ export class MolHttpClientService {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
-                this.HandleError(error, MoleculesHttpMethod.GET);
+                this.HandleError(error, MoleculesHttpMethod.PUT);
                 return EMPTY;
             }),
             map((response: HttpResponse<Type>) => response.body));
@@ -67,7 +68,7 @@ export class MolHttpClientService {
                 observe: 'response',
                 responseType: 'json'
             }).pipe(catchError((error: HttpErrorResponse) => {
-                this.HandleError(error, MoleculesHttpMethod.GET);
+                this.HandleError(error, MoleculesHttpMethod.Patch);
                 return EMPTY;
             }),
             map((response: HttpResponse<Type>) => response.body));

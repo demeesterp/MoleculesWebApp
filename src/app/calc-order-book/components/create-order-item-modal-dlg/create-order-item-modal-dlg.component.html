@@ -57,7 +57,6 @@
                     formControlName = 'basisSet'
                     aria-describedby = "basisSetHelp" >
                     <option [value]="bs.Code"
-                            [attr.selected]="i == 0"
                             *ngFor="let bs of CalcBasisSets; index as i">
                             {{bs.Name}}
                     </option>

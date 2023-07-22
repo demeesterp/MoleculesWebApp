@@ -5,6 +5,7 @@ import { CreateOrderItemModalDlgComponent } from './create-order-item-modal-dlg/
 import { MolHttpClientErrorService } from 'src/app/shared/services/mol-http-client-error.service';
 import { CalcOrderBookService } from '../services/calc-order-book.service';
 import { CalcOrderViewModel } from '../view-models/calc-order-view-model';
+import { CalcOrderItemViewModel } from '../view-models/calc-order-item-view-model';
 
 @Component({
   selector: 'app-calc-order',
@@ -38,8 +39,8 @@ export class CalcOrderBookComponent implements OnInit{
 		modalRef.componentInstance.name = 'CreateOrderModalDlgComponent';
     modalRef.result.then( (result: CalcOrderViewModel) => 
           this.calcOrderBookService.CreateCalculationOrder(result)
-          .then((result) => {
-                this.SelectedOrder = result;
+          .then((createdOrder) => {
+              this.SelectedOrder = createdOrder;
           })
     );
   }
@@ -47,9 +48,18 @@ export class CalcOrderBookComponent implements OnInit{
   public OnClickNewOrderItem() {
     const modalRef = this.modalService.open(CreateOrderItemModalDlgComponent);
 		modalRef.componentInstance.name = 'CreateOrderItemModalDlgComponent';
-    modalRef.result.then((result) => {
-      alert(`Closed with: ${JSON.stringify(result)}`);
-    });
+    modalRef.result.then((result: CalcOrderItemViewModel) => {
+        if ( this.SelectedOrder ) {
+          this.calcOrderBookService.CreateCalculationOrderItem(this.SelectedOrder?.Id,result);
+        }
+      }
+    );
+  }
+
+  public OnClickDeleteOrderItem(item: CalcOrderItemViewModel) {
+    if( this.SelectedOrder) {
+      this.calcOrderBookService.DeleteOrderItem(this.SelectedOrder.Id, item.Id);
+    }
   }
 
   public OnClickOrder(order:CalcOrderViewModel) {

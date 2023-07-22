@@ -1,4 +1,4 @@
-import { MoleculesHttpMethod } from "./molecules-http-method";
+import { MoleculesHttpMethod } from "../molecules-http-method";
 
 export class ConnectionError {
 

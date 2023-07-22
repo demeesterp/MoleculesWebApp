@@ -4,6 +4,8 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalcBasisSet } from '../../entities/basisset/calc-basisset';
 import { BasisSetService } from '../../entities/basisset/all-calc-basissets';
 import { CalcBasisSetCode } from '../../entities/basisset/calc-basisset-code';
+import { CalcOrderItemViewModel } from '../../view-models/calc-order-item-view-model';
+import { CalcDetailsViewModel } from '../../view-models/calc-details-view-model';
 
 @Component({
   selector: 'app-create-order-item-modal-dlg',
@@ -39,19 +41,17 @@ export class CreateOrderItemModalDlgComponent implements OnInit {
 
    public OnClickSave():void {
     if ( this.ValidateForm() ) {
-      this.activeModal.close({
-        id:0,
-        MoleculeName: this.orderItemForm.value.moleculeName,
-        CalcDetails: {
-          CalcType: this.orderItemForm.value.calcType,
-          BasisSet: this.orderItemForm.value.basisSet,
-          Charge: this.orderItemForm.value.moleculeCharge,
-          XyzData: this.xyzContent
-        }
+      let retval = new CalcOrderItemViewModel();
+      retval.MoleculeName = this.orderItemForm.value.moleculeName;
+      retval.Details = CalcDetailsViewModel.fromCalcDetails({
+              CalcType: this.orderItemForm.value.calcType,
+              BasisSetCode: this.orderItemForm.value.basisSet,
+              Charge: this.orderItemForm.value.moleculeCharge,
+              Xyz: this.xyzContent
       });
+      this.activeModal.close(retval);
     }
    }
-
 
    public onFileChange(event: any): void {
       if ( event.target?.files 

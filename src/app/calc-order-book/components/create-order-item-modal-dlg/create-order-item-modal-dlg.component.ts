@@ -9,8 +9,7 @@ import { CalcDetailsViewModel } from '../../view-models/calc-details-view-model'
 
 @Component({
   selector: 'app-create-order-item-modal-dlg',
-  templateUrl: './create-order-item-modal-dlg.component.html',
-  styleUrls: ['./create-order-item-modal-dlg.component.scss']
+  templateUrl: './create-order-item-modal-dlg.component.html'
 })
 export class CreateOrderItemModalDlgComponent implements OnInit {
 

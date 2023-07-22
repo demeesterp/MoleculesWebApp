@@ -13,13 +13,25 @@
         <div class="col-9">
              <div class="d-flex flex-row">
                 <div class="pt-1">Order Items 
-                    <span *ngIf="SelectedOrder !== null" > for order {{SelectedOrder.Details.Name}}</span>
+                    <span *ngIf="SelectedOrder !== null" > for order <b>{{SelectedOrder.Details.Name}}</b></span>
                 </div>
                 <button type="button" 
                         *ngIf="SelectedOrder !== null"
                         (click)="OnClickNewOrderItem()" 
-                        class="btn btn-outline-primary btn-sm ms-auto">
-                        New Order Item
+                        class="btn btn-outline-primary btn-sm ms-auto me-2">
+                    Add Order Item
+                </button>              
+                <button type="button"
+                        *ngIf="SelectedOrder !== null"
+                        (click)="OnClickEditOrder()"
+                        class="btn btn-outline-primary btn-sm me-2">
+                    Update Order
+                </button>
+                <button type="button"
+                        *ngIf="SelectedOrder !== null"
+                        (click)="OnClickDeleteOrder()"
+                        class="btn btn-outline-primary btn-sm">
+                    Delete Order
                 </button>
              </div>
         </div>

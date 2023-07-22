@@ -9,7 +9,7 @@ import { CalcOrderViewModel } from '../../view-models/calc-order-view-model';
 })
 export class CreateOrderModalDlgComponent implements OnInit {
 
-  @Input() public formValidated!:boolean;
+  public formValidated!:boolean;
 
   public orderName = new FormControl('', Validators.required);
 

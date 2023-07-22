@@ -30,7 +30,7 @@ export class CalcOrderRepoService {
   }
 
   public updateCalcOrder(id:number, name:string, description:string): Observable<ICalcOrder | null> {
-    return this.httpClient.put<ICalcOrder>(`calcorders/${id}`, {name, description});
+    return this.httpClient.patch<ICalcOrder>(`calcorders/${id}`, {name, description});
   }
 
   public createCalcOrderItem(calcOrderId:number, itemdetails: ICreateCalcOrderItem): Observable<ICalcOrderItem | null> {

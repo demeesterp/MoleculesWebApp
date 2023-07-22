@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalcOrderRepoService } from './calc-order-repo.service';
 import { CalcOrderViewModel } from '../view-models/calc-order-view-model';
-import { EMPTY, catchError, finalize, firstValueFrom, map, tap, throwError } from 'rxjs';
+import { EMPTY, catchError, finalize, firstValueFrom, map, tap } from 'rxjs';
 import { ICalcOrder } from '../contracts/calc-order';
 import { MolHttpClientErrorService } from 'src/app/shared/services/mol-http-client-error.service';
 import { CalcOrderItemViewModel } from '../view-models/calc-order-item-view-model';
@@ -45,11 +45,12 @@ export class CalcOrderBookService {
       .pipe(catchError((err) => {
             this.errorService.HandleAnyError(err);
             return EMPTY;
-          }),
-          map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
-          tap((calcOrderVm) =>  {
-            if ( calcOrderVm ) this.handleCalcOrderList([...this.CalculationOrders, calcOrderVm]);
-          })));
+      }),
+      map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
+      tap((calcOrderVm) => {
+        if ( calcOrderVm ) 
+            this.handleCalcOrderList([...this.CalculationOrders.filter(order => order.Id !== id), calcOrderVm]);
+      })));
    }
 
    public DeleteCalculationOrder(id:number) {

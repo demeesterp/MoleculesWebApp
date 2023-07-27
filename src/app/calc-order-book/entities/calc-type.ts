@@ -1,4 +1,4 @@
-export enum CalcType {
-    GeoOpt = "GeoOpt",
-    NoGeoOpt = "NoGeoOpt"
+export enum CalcOrderItemType {
+    AllKinds = "AllKinds",
+    AllKindsNoGeoOpt = "AllKindsNoGeoOpt"
 }

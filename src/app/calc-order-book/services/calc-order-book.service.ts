@@ -69,7 +69,7 @@ export class CalcOrderBookService {
           MoleculeName : calcOrderItem.MoleculeName,
           Details : {
             Charge : calcOrderItem.Details.Charge,
-            CalcType : calcOrderItem.Details.CalcType,
+            Type : calcOrderItem.Details.Type,
             BasisSetCode : calcOrderItem.Details.BasisSet.Code,
             Xyz : calcOrderItem.Details.Xyz
           }

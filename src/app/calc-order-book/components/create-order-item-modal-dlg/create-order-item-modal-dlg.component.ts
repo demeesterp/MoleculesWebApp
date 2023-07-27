@@ -43,7 +43,7 @@ export class CreateOrderItemModalDlgComponent implements OnInit {
       let retval = new CalcOrderItemViewModel();
       retval.MoleculeName = this.orderItemForm.value.moleculeName;
       retval.Details = CalcDetailsViewModel.fromCalcDetails({
-              CalcType: this.orderItemForm.value.calcType,
+              Type: this.orderItemForm.value.calcType,
               BasisSetCode: this.orderItemForm.value.basisSet,
               Charge: this.orderItemForm.value.moleculeCharge,
               Xyz: this.xyzContent

@@ -1,6 +1,6 @@
 export interface  ICalcDetails {
     Charge:number;
-    CalcType:string;
+    Type:string;
     BasisSetCode:string;
     Xyz:string;
 

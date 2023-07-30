@@ -55,7 +55,16 @@ export class CreateOrderItemModalDlgComponent implements OnInit {
    public onFileChange(event: any): void {
       if ( event.target?.files 
             && event.target.files.length > 0 ) {
+        
         const file = event.target.files[0];
+        
+        if ( !this.orderItemForm.value.moleculeName 
+              || this.orderItemForm.value.moleculeName.length === 0 ) {
+          this.orderItemForm.patchValue({
+            moleculeName: file.name.replace(".xyz","")
+          });
+        }        
+
         const reader = new FileReader();
         reader.readAsText(file);
         reader.onload = () => {

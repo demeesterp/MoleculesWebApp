@@ -20,7 +20,7 @@ export class CreateOrderItemModalDlgComponent implements OnInit {
    public orderItemForm: FormGroup = new FormGroup({
               moleculeName: new FormControl('', [Validators.required, Validators.maxLength(250)]),
               moleculeCharge: new FormControl('0',[Validators.required]),
-              calcType: new FormControl('GeoOpt'  , [Validators.required]),
+              calcType: new FormControl('AllKinds'  , [Validators.required]),
               basisSet: new FormControl(CalcBasisSetCode.BSTO3G  , [Validators.required]),
               xyzData: new FormControl('', [Validators.required]),
   });

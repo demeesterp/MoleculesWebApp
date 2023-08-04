@@ -1,4 +1,4 @@
-import { ICalcDetails } from "../contracts/calc-details";
+import { ICalcDetails } from "../contracts/icalc-details";
 import { BasisSetService } from "../entities/basisset/all-calc-basissets";
 import { CalcBasisSet } from "../entities/basisset/calc-basisset";
 import { CalcBasisSetCode } from "../entities/basisset/calc-basisset-code";

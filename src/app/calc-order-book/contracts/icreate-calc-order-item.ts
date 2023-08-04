@@ -1,4 +1,4 @@
-import { ICalcDetails } from "./calc-details";
+import { ICalcDetails } from "./icalc-details";
 
 export interface ICreateCalcOrderItem {
     MoleculeName:string;

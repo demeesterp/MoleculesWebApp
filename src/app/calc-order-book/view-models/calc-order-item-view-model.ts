@@ -1,4 +1,4 @@
-import { ICalcOrderItem } from "../contracts/calc-order-item";
+import { ICalcOrderItem } from "../contracts/icalc-order-item";
 import { CalcDetailsViewModel } from "./calc-details-view-model";
 
 export class CalcOrderItemViewModel {    

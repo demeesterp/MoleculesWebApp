@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MolHttpClientService } from 'src/app/shared/services/mol-http-client.service';
-import { ICalcOrder } from '../contracts/calc-order';
-import { ICreateCalcOrderItem } from '../contracts/create-calc-order-item';
-import { ICalcOrderItem } from '../contracts/calc-order-item';
+import { ICalcOrder } from '../contracts/icalc-order';
+import { ICreateCalcOrderItem } from '../contracts/icreate-calc-order-item';
+import { ICalcOrderItem } from '../contracts/icalc-order-item';
 
 @Injectable({
   providedIn: 'root'

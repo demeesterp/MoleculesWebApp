@@ -1,4 +1,4 @@
-import { ICalcOrderDetails } from "../contracts/calc-order-details";
+import { ICalcOrderDetails } from "../contracts/icalc-order-details";
 
 export class CalcOrderDetailsViewModel {
    

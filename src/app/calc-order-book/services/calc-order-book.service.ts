@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CalcOrderRepoService } from './calc-order-repo.service';
 import { CalcOrderViewModel } from '../view-models/calc-order-view-model';
 import { EMPTY, catchError, finalize, firstValueFrom, map, tap } from 'rxjs';
-import { ICalcOrder } from '../contracts/calc-order';
+import { ICalcOrder } from '../contracts/icalc-order';
 import { MolHttpClientErrorService } from 'src/app/shared/services/mol-http-client-error.service';
 import { CalcOrderItemViewModel } from '../view-models/calc-order-item-view-model';
 

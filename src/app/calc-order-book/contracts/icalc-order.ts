@@ -1,5 +1,5 @@
-import { ICalcOrderDetails } from "./calc-order-details";
-import { ICalcOrderItem } from "./calc-order-item";
+import { ICalcOrderDetails } from "./icalc-order-details";
+import { ICalcOrderItem } from "./icalc-order-item";
 
 export interface ICalcOrder {        
     Id:number;

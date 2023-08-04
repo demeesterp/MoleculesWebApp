@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="card-body">    
-        <form [ngClass]="formValidated ? 'was-validated' : 'needs-validation' " novalidate>
+        <form [ngClass]="formValidated?'was-validated':'needs-validation'" novalidate>
             <div>
                 <label for="calcOrderName" class="form-label">Order Name</label>
                 <input type="text" 

@@ -49,7 +49,10 @@ export class CalcOrderBookComponent implements OnInit{
       modalRef.componentInstance.name = 'UpdateOrderModalDlgComponent';
       modalRef.componentInstance.OrderName = this.SelectedOrder?.Details.Name;
       modalRef.result.then( (result: CalcOrderViewModel) => {          
-        if ( this.SelectedOrder ) this.calcOrderBookService.UpdateCalculationOrder(this.SelectedOrder.Id, result.Details.Name, '')    
+        if ( this.SelectedOrder ) {
+          this.calcOrderBookService.UpdateCalculationOrder(this.SelectedOrder.Id, result.Details.Name, '')
+          .then((order) => this.SelectedOrder = order);
+        }   
       });
     }
   }

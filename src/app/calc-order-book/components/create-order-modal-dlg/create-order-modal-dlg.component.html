@@ -6,11 +6,11 @@
         </div>
     </div>
     <div class="card-body">    
-        <form [ngClass]="formValidated ? 'was-validated' : 'needs-validation' " novalidate>
+        <form [ngClass]="formValidated?'was-validated':'needs-validation'" novalidate>
             <div>
                 <label for="calcOrderName" class="form-label">Order Name</label>
                 <input type="text" 
-                        [formControl]='orderName'
+                        [formControl]='orderNameFormControl'
                         tabindex="1"
                         class="form-control" 
                         id="calcOrderName" 
@@ -19,7 +19,9 @@
                 <div class="invalid-feedback">
                     The name is mandatory and can have max 250 characters.
                 </div>
-                <div id="orderNameHelp" class="form-text">Choose a descriptive name for your order.</div>
+                <div id="orderNameHelp" class="form-text">
+                    Choose a descriptive name for your order.
+                </div>
             </div>
             <div class="d-flex flex-row-reverse">           
                 <button type="button" 

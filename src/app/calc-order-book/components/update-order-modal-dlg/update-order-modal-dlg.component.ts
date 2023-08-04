@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalcOrderViewModel } from '../../view-models/calc-order-view-model';
+import { NgbTimeStructAdapter } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time-adapter';
 
 @Component({
   selector: 'app-update-order-modal-dlg',
@@ -11,11 +12,13 @@ export class UpdateOrderModalDlgComponent {
 
   public formValidated:boolean = false;
 
-  public orderNameFormCtrl!: FormControl;
+  // Validators.pattern('[a-zA-Z]*$')
+
+  public orderNameFormCtrl: FormControl =  new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9]*$')]);
 
 
   public get OrderName():string {
-      return this.orderNameFormCtrl.value;
+      return this.orderNameFormCtrl.value??"";
   }
 
   public set OrderName(input:string){
@@ -23,7 +26,6 @@ export class UpdateOrderModalDlgComponent {
   }
 
   constructor(public activeModal: NgbActiveModal) { 
-    this.orderNameFormCtrl = new FormControl('', Validators.required);
   }  
   
   public OnClickClose() {
@@ -33,15 +35,14 @@ export class UpdateOrderModalDlgComponent {
   public OnClickSave() {
     if (this.ValidateForm()) { 
       let result = new CalcOrderViewModel();
-      result.Details.Name = this.orderNameFormCtrl.value??"";
+      result.Details.Name = this.OrderName;
       this.activeModal.close(result);
     }
-
   }
 
   private ValidateForm() : boolean {
-    this.formValidated = false;
-    return this.orderNameFormCtrl.status == 'VALID';
+    this.formValidated = true;
+    return this.orderNameFormCtrl.status === 'VALID';
   }
 
 }

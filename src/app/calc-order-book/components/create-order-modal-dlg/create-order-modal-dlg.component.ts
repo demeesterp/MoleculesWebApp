@@ -11,7 +11,7 @@ export class CreateOrderModalDlgComponent implements OnInit {
 
   public formValidated!:boolean;
 
-  public orderName = new FormControl('', Validators.required);
+  public orderNameFormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z0-9]*$')]);
 
   constructor(public activeModal: NgbActiveModal) { }
 
@@ -26,14 +26,14 @@ export class CreateOrderModalDlgComponent implements OnInit {
   OnClickSave() {
     if (this.ValidateForm()) { 
       let result = new CalcOrderViewModel();
-      result.Details.Name = this.orderName.value??"";
+      result.Details.Name = this.orderNameFormControl.value??"";
       this.activeModal.close(result);
     }
   }
 
   private ValidateForm() : boolean {
-    this.formValidated = false;
-    return this.orderName.status == 'VALID';
+    this.formValidated = true;
+    return this.orderNameFormControl.status === 'VALID';
   }
     
 

@@ -23,7 +23,7 @@ export class CalcOrderBookService {
           return [];
       }),
       map((calcOrders) => this.mapCalcOrderList(calcOrders)),
-      tap((calcOrderVms) => this.handleCalcOrderList([ ...calcOrderVms]))));
+      tap((calcOrderVms) => this.handleCalcOrderList([...calcOrderVms]))));
   }
 
 
@@ -35,7 +35,11 @@ export class CalcOrderBookService {
       }),
       map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
       tap((calcOrderVm) => {
-        if ( calcOrderVm ) this.handleCalcOrderList([...this.CalculationOrders, calcOrderVm])
+        if ( calcOrderVm ) {
+          this.handleCalcOrderList([...this.CalculationOrders, calcOrderVm]);
+        } else {
+          this.handleCalcOrderList([...this.CalculationOrders]);
+        }
       }) )
       );
   }
@@ -48,8 +52,11 @@ export class CalcOrderBookService {
       }),
       map((calcOrder) => CalcOrderViewModel.fromCalcOrder(calcOrder)),
       tap((calcOrderVm) => {
-        if ( calcOrderVm ) 
-            this.handleCalcOrderList([...this.CalculationOrders.filter(order => order.Id !== id), calcOrderVm]);
+        if (calcOrderVm) {
+          this.handleCalcOrderList([...this.CalculationOrders.filter(order => order.Id !== id), calcOrderVm]);
+        } else {
+          this.handleCalcOrderList([...this.CalculationOrders]);
+        }       
       })));
    }
 
@@ -82,7 +89,8 @@ export class CalcOrderBookService {
       tap((calcOrderItemVm) => {      
         let currentOrder = this.CalculationOrders.find(order => order.Id === calcOrderId);
         if (currentOrder && calcOrderItemVm) {
-          currentOrder.Items = this.handleCalcOrderItemList([calcOrderItemVm, ... currentOrder.Items]) ;
+          currentOrder.Items = this.handleCalcOrderItemList([calcOrderItemVm, ... currentOrder.Items]);
+          this.handleCalcOrderList([...this.CalculationOrders.filter(order => order.Id !== calcOrderId), currentOrder]);
         }
       })
       ));

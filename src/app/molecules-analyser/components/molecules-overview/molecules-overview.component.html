@@ -1,0 +1,36 @@
+<div class="container-lg">
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="d-flex flex-row">
+                <input autofocus tabindex="1" title="search by molecule name" #box type="text">
+                <button tabindex="-1" type="button" 
+                        (click)="OnClickSearch(box.value)" 
+                        class="btn btn-outline-primary btn-sm ms-1">
+                        Search Molecules
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Calculation Order</th>
+                        <th scope="col">Molecule</th>
+                        <th scope="col">Basisset</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let moleculeItem of Molecules">
+                        <td>{{moleculeItem.Id}}</td>
+                        <td>{{moleculeItem.OrderName}}</td>
+                        <td>{{moleculeItem.MoleculeName}}</td>
+                        <td>{{moleculeItem.BasisSet}}</td>
+                    </tr>
+                </tbody>
+           </table>
+        </div>
+    </div>
+</div>

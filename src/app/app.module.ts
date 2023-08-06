@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalcOrderBookModule } from './calc-order-book/calc-order-book.module';
 import { AppHeaderComponent } from './app-header/components/app-header/app-header.component';
 import { SharedModule } from './shared/shared.module';
+import { MoleculesAnalyserModule } from './molecules-analyser/molecules-analyser.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     NgbModule,
     SharedModule,
-    CalcOrderBookModule
+    CalcOrderBookModule,
+    MoleculesAnalyserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

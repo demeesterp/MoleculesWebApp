@@ -2,7 +2,7 @@
     <div class="row mb-3">
         <div class="col-12">
             <div class="d-flex flex-row">
-                <input autofocus tabindex="1" title="search by molecule name" #box type="text">
+                <input autofocus tabindex="1" placeholder="enter molecule name" title="search by molecule name wildcards allowed" #box type="text">
                 <button tabindex="-1" type="button" 
                         (click)="OnClickSearch(box.value)" 
                         class="btn btn-outline-primary btn-sm ms-1">

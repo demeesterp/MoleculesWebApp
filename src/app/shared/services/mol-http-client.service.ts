@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, catchError, filter, map } from 'rxjs';
+import { EMPTY, Observable, catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { ConnectionError } from '../entities/error/connection-error';
 import { ServerValidationError } from '../entities/error/server-validation-error';
@@ -17,7 +17,7 @@ export class MolHttpClientService {
  public get<Type>(url:string): Observable<Type | null> {
     return this.client.get<Type>(this.ComposeUrl(url), {
       observe: 'response',
-      responseType: 'json'
+      responseType: 'json',
     }).pipe(
          catchError((error: HttpErrorResponse) => {
           this.HandleError(error, MoleculesHttpMethod.GET);
@@ -89,7 +89,7 @@ export class MolHttpClientService {
  }
 
  private ComposeUrl(url:string):string {
-    return `${environment.apiEndpoint}${url}`;
+    return `${environment.apiEndpoint}${url}` ;
  }
 
 }

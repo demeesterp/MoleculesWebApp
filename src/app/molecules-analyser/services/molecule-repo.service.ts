@@ -15,7 +15,7 @@ export class MoleculeRepoService {
   }
 
   public FindByName(name:string): Observable<ICalcMolecule[]|null> {
-    return this.httpClient.get<ICalcMolecule[]>(`molecule/name/${name}`);
+    return this.httpClient.get<ICalcMolecule[]>(`molecule/name/${encodeURIComponent(name)}`);
   }
 
 }
